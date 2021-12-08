@@ -22,7 +22,7 @@ function DoneCard({ doneDuty }) {
                 <h1 className="text-xl font-bold">{title}</h1>
                 <h3>{task}</h3>
             </div>
-            <div className="px-4" >
+            <div className="ml-5" >
                 <TrashIcon onClick={handleDoneDelete} className="button w-15 h-15" />
             </div>
         </div>

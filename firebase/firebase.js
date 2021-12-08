@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDKNToTlydCQH-SFnzc8R-XTnnkkMkkwiw",
-  authDomain: "effort-app-89a2a.firebaseapp.com",
+  apiKey: process.env.NEXT_APP_API_KEY,
+  authDomain: process.env.NEXT_APP_AUTH_DOMAIN,
   projectId: "effort-app-89a2a",
-  storageBucket: "effort-app-89a2a.appspot.com",
-  messagingSenderId: "896911819964",
-  appId: "1:896911819964:web:cef71a3054a5995c053cb9"
+  storageBucket: process.env.NEXT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_APP_APP_ID
 };
 
 // Initialize Firebase

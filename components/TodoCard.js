@@ -1,7 +1,7 @@
-import { addDoc, collection, deleteDoc, doc, setDoc } from "@firebase/firestore";
+import { addDoc, collection, deleteDoc, doc } from "@firebase/firestore";
 import db from "../firebase/firebase";
 import {
-    CheckIcon, PencilIcon, TrashIcon
+    CheckIcon, TrashIcon
 } from "@heroicons/react/outline";
 
 function TodoCard({ duty }) {
@@ -20,12 +20,6 @@ function TodoCard({ duty }) {
         await deleteDoc(doc(db, "data", id));
     };
 
-    const handleEdit = async (id) => {
-        const docRef = doc(db, "data", id);
-        const payload = { task: "tomtom", title: "pisipisi" }
-        setDoc(docRef, payload);
-    };
-
     return (
         <div className={`transform transition cursor-pointer hover:-translate-y-2 ml-10 relative flex items-center px-6 py-4 bg-blue-600 text-white rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0`}>
             <div className={`w-5 h-5 bg-blue-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0`}></div>
@@ -41,9 +35,6 @@ function TodoCard({ duty }) {
                 </div>
                 <div className="px-2" >
                     <TrashIcon onClick={handleDelete} className="button w-15 h-15" />
-                </div>
-                <div className="px-2" >
-                    <PencilIcon onClick={() => handleEdit(id)} className="button w-15 h-15" />
                 </div>
             </div>
         </div>
