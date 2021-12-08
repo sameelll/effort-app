@@ -18,8 +18,7 @@ function DoneCard({ doneDuty }) {
             <div className={`w-5 h-5 bg-green-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0`}></div>
             <div className="w-10 h-1 bg-green-300 absolute -left-10 z-0"></div>
             <div className="flex-auto">
-                <h1 className="text-lg">Day 1</h1>
-                <h1 className="text-xl font-bold">{title}</h1>
+                <h1 className="text-xl mb-2 font-bold">{title}</h1>
                 <h3>{task}</h3>
             </div>
             <div className="ml-5" >

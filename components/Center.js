@@ -13,9 +13,15 @@ function Center() {
     const [task, setTask] = useState("");
 
     const handleNew = async () => {
-        const collectionRef = collection(db, "data");
-        const payload = { task, title }
-        await addDoc(collectionRef, payload);
+        const collectionRef = collection(db, "data");    
+        const payload = { task, title };
+        if(task !== "" && title !== ""){
+            await addDoc(collectionRef, payload);
+        } else {
+            alert("Please enter the title and the task!");
+        }
+        setTask("");
+        setTitle("");
     };
 
     useEffect(() => {
@@ -31,35 +37,42 @@ function Center() {
     }, []);
 
     return (
-        <div> 
-            <div className="flex flex-col-2">
-                <div className="px-10 text-xs lg:text-sm overflow-y-scroll scrollbar-hide h-screen">
+        <div>
+            <div className="flex">
+                <div className="px-10 overflow-y-scroll scrollbar-hide">
                     <div>
                         <div className="border-l-2 mt-10">
-                            <div className="transition cursor-pointer  ml-10 relative flex items-center px-6 py-4 bg-yellow-500 text-white rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
+                            <div className="transition ml-10 relative flex items-center px-6 py-4 bg-yellow-300  rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
                                 <div className="w-5 h-5 bg-yellow-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
                                 <div className="w-10 h-1 bg-yellow-300 absolute -left-10 z-0"></div>
                                 <div className="flex-auto">
-                                    <h1 className="text-lg">Day 1</h1>
                                     <h1 className="text-xl font-bold"></h1>
                                     <div className="flex flex-col items-center justify-center py-4">
-                                        <form>
+                                        <form method="post">
                                             <div className="py-4">
                                                 <div className="relative">
-                                                    <input
-                                                        onChange={(e) => setTitle(e.target.value)}
-                                                        type="text"
-                                                        className="bg-yellow-500 border-b py-1 focus:outline-none focus:border-gray-700 focus:border-b-2 transition-colors peer" />
-                                                    <label className="absolute left-0 top-1 text-whitecursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-gray-700 transition-all">Title</label>
+                                                    <div className="flex flex-col space-y-2">
+                                                        <label className="text-black select-none font-medium">Title</label>
+                                                        <input
+                                                            onChange={(e) => setTitle(e.target.value)}
+                                                            type="text"
+                                                            value={title}
+                                                            className="py-2 text-lg px-3 font-bold bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="py-4">
                                                 <div className="relative">
-                                                    <input
-                                                        onChange={(e) => setTask(e.target.value)}
-                                                        type="text"
-                                                        className="bg-yellow-500 border-b py-1 focus:outline-none focus:border-gray-700 focus:border-b-2 transition-colors peer" />
-                                                    <label className="absolute left-0 top-1 text-white cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-gray-700 transition-all">Task</label>
+                                                    <div className="flex flex-col space-y-2">
+                                                        <label className="text-black select-none font-medium">Task</label>
+                                                        <input
+                                                            onChange={(e) => setTask(e.target.value)}
+                                                            type="text"
+                                                            value={task}
+                                                            className="py-2 text-lg px-3 font-bold bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="flex items-center justify-center">
@@ -79,7 +92,7 @@ function Center() {
                         </div>
                     </div>
                 </div>
-                <div className="px-5 text-xs lg:text-sm overflow-y-scroll scrollbar-hide h-screen">
+                <div className="px-5 text-xs lg:text-sm overflow-y-scroll scrollbar-hide">
                     <div className="border-l-2 mt-10">
                         {doneTasks.map(doneDuty => (
                             <DoneCard
@@ -88,8 +101,8 @@ function Center() {
                         ))}
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 
