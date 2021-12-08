@@ -13,9 +13,9 @@ function Center() {
     const [task, setTask] = useState("");
 
     const handleNew = async () => {
-        const collectionRef = collection(db, "data");    
+        const collectionRef = collection(db, "data");
         const payload = { task, title };
-        if(task !== "" && title !== ""){
+        if (task !== "" && title !== "") {
             await addDoc(collectionRef, payload);
         } else {
             alert("Please enter the title and the task!");
@@ -37,72 +37,76 @@ function Center() {
     }, []);
 
     return (
-        <div>
-            <div className="flex">
-                <div className="px-10 overflow-y-scroll scrollbar-hide">
-                    <div>
-                        <div className="border-l-2 mt-10">
-                            <div className="transition ml-10 relative flex items-center px-6 py-4 bg-yellow-300  rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
-                                <div className="w-5 h-5 bg-yellow-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
-                                <div className="w-10 h-1 bg-yellow-300 absolute -left-10 z-0"></div>
-                                <div className="flex-auto">
-                                    <h1 className="text-xl font-bold"></h1>
-                                    <div className="flex flex-col items-center justify-center py-4">
-                                        <form method="post">
-                                            <div className="py-4">
-                                                <div className="relative">
-                                                    <div className="flex flex-col space-y-2">
-                                                        <label className="text-black select-none font-medium">Title</label>
-                                                        <input
-                                                            onChange={(e) => setTitle(e.target.value)}
-                                                            type="text"
-                                                            value={title}
-                                                            className="py-2 text-lg px-3 font-bold bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                        />
-                                                    </div>
+        <div className="flex mt-4">
+            <div className="px-5 overflow-y-scroll h-screen scrollbar-hide">
+                <div>
+                    <h3 className="text-4xl font-normal leading-normal mt-0 mb-2 text-blue-300">
+                        Works
+                    </h3>
+                    <div className="border-l-2 mt-5">
+                        <div className="transition ml-10 relative flex items-center px-6 py-4 bg-yellow-300  rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
+                            <div className="w-5 h-5 bg-yellow-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
+                            <div className="w-10 h-1 bg-yellow-300 absolute -left-10 z-0"></div>
+                            <div className="flex-auto">
+                                <h1 className="text-xl font-bold"></h1>
+                                <div className="flex flex-col items-center justify-center py-1">
+                                    <form method="post">
+                                        <div className="py-1">
+                                            <div className="relative">
+                                                <div className="flex flex-col space-y-2">
+                                                    <label className="text-black select-none font-medium">Title</label>
+                                                    <input
+                                                        onChange={(e) => setTitle(e.target.value)}
+                                                        type="text"
+                                                        value={title}
+                                                        className="py-2 text-lg px-3 font-bold bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                    />
                                                 </div>
                                             </div>
-                                            <div className="py-4">
-                                                <div className="relative">
-                                                    <div className="flex flex-col space-y-2">
-                                                        <label className="text-black select-none font-medium">Task</label>
-                                                        <input
-                                                            onChange={(e) => setTask(e.target.value)}
-                                                            type="text"
-                                                            value={task}
-                                                            className="py-2 text-lg px-3 font-bold bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                        />
-                                                    </div>
+                                        </div>
+                                        <div className="py-4">
+                                            <div className="relative">
+                                                <div className="flex flex-col space-y-2">
+                                                    <label className="text-black select-none font-medium">Task</label>
+                                                    <input
+                                                        onChange={(e) => setTask(e.target.value)}
+                                                        type="text"
+                                                        value={task}
+                                                        className="py-2 text-lg px-3 font-bold bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                    />
                                                 </div>
                                             </div>
-                                            <div className="flex items-center justify-center">
-                                                <div className="pt-3" >
-                                                    <PlusIcon onClick={handleNew} className="button w-15 h-15 cursor-pointer hover:scale-200 transition transform duration-100 ease-out" />
-                                                </div>
+                                        </div>
+                                        <div className="flex items-center justify-center">
+                                            <div className="pt-3" >
+                                                <PlusIcon onClick={handleNew} className="button w-15 h-15 cursor-pointer hover:scale-200 transition transform duration-100 ease-out" />
                                             </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            {tasks.map(duty => (
-                                <TodoCard
-                                    key={duty.id}
-                                    duty={duty} />
-                            ))}
                         </div>
-                    </div>
-                </div>
-                <div className="px-5 text-xs lg:text-sm overflow-y-scroll scrollbar-hide">
-                    <div className="border-l-2 mt-10">
-                        {doneTasks.map(doneDuty => (
-                            <DoneCard
-                                key={doneDuty.id}
-                                doneDuty={doneDuty} />
+                        {tasks.map(duty => (
+                            <TodoCard
+                                key={duty.id}
+                                duty={duty} />
                         ))}
                     </div>
                 </div>
-            </div >
-        </div >
+            </div>
+            <div className="px-5 overflow-y-scroll h-screen scrollbar-hide">
+                <h3 className="text-green-300 text-4xl font-normal leading-normal mt-0 mb-2 text-lightBlue-800">
+                    Works Done
+                </h3>
+                <div className="border-l-2 mt-5">
+                    {doneTasks.map(doneDuty => (
+                        <DoneCard
+                            key={doneDuty.id}
+                            doneDuty={doneDuty} />
+                    ))}
+                </div>
+            </div>
+        </div>
     )
 }
 
