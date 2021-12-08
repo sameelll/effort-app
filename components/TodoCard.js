@@ -1,10 +1,17 @@
+import { deleteDoc, doc } from "@firebase/firestore";
+import db from "../firebase/firebase";
 import {
-    CheckIcon
+    CheckIcon, TrashIcon
 } from "@heroicons/react/outline";
 
 function TodoCard({ duty }) {
 
-    const { task, title } = duty;
+    const { task, title, id } = duty;
+
+    const handleDelete = async (e) => {
+        e.stopPropagation();
+        await deleteDoc(doc(db, "data", id));
+    }
 
     return (
         
@@ -23,6 +30,9 @@ function TodoCard({ duty }) {
                 </div>
                 <div className="px-4" >
                     <CheckIcon className="button w-15 h-15" />
+                </div>
+                <div className="px-4" >
+                    <TrashIcon onClick={handleDelete} className="button w-15 h-15" />
                 </div>
             </div>
     )

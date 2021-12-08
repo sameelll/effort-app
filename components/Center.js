@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from "@firebase/firestore";
+import { addDoc, collection, onSnapshot } from "@firebase/firestore";
 import { PlusIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import db from "../firebase/firebase";
@@ -7,7 +7,15 @@ import TodoCard from "./TodoCard";
 function Center() {
 
     const [tasks, setTasks] = useState([]);
-    console.log(tasks)
+    console.log(tasks);
+    const [title, setTitle] = useState("");
+    const [task, setTask] = useState("");
+
+    const handleNew = async () => {
+        const collectionRef = collection(db, "data");
+        const payload = { task , title }
+        await addDoc(collectionRef, payload);
+    };
 
     useEffect(() => {
         onSnapshot(collection(db, "data"), (snapshot) => {
@@ -30,19 +38,25 @@ function Center() {
                                 <form>
                                     <div className="py-4">
                                         <div className="relative">
-                                            <input type="text" className="bg-yellow-500 border-b py-1 focus:outline-none focus:border-gray-700 focus:border-b-2 transition-colors peer" />
+                                            <input
+                                                onChange={(e) => setTitle(e.target.value)} 
+                                                type="text"
+                                                className="bg-yellow-500 border-b py-1 focus:outline-none focus:border-gray-700 focus:border-b-2 transition-colors peer" />
                                             <label className="absolute left-0 top-1 text-whitecursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-gray-700 transition-all">Title</label>
                                         </div>
                                     </div>
                                     <div className="py-4">
                                         <div className="relative">
-                                            <input type="text" className="bg-yellow-500 border-b py-1 focus:outline-none focus:border-gray-700 focus:border-b-2 transition-colors peer" />
+                                            <input 
+                                                onChange={(e) => setTask(e.target.value)}
+                                                type="text" 
+                                                className="bg-yellow-500 border-b py-1 focus:outline-none focus:border-gray-700 focus:border-b-2 transition-colors peer" />
                                             <label className="absolute left-0 top-1 text-white cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-gray-700 transition-all">Task</label>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-center">
                                         <div className="pt-3" >
-                                            <PlusIcon className="button w-15 h-15 cursor-pointer hover:scale-200 transition transform duration-100 ease-out" />
+                                            <PlusIcon onClick={handleNew} className="button w-15 h-15 cursor-pointer hover:scale-200 transition transform duration-100 ease-out" />
                                         </div>
                                     </div>
                                 </form>
