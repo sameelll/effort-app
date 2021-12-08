@@ -1,7 +1,7 @@
-import { addDoc, collection, deleteDoc, doc } from "@firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, setDoc } from "@firebase/firestore";
 import db from "../firebase/firebase";
 import {
-    CheckIcon, TrashIcon
+    CheckIcon, PencilIcon, TrashIcon
 } from "@heroicons/react/outline";
 
 function TodoCard({ duty }) {
@@ -15,9 +15,15 @@ function TodoCard({ duty }) {
 
     const handleDone = async () => {
         const collectionRef = collection(db, "done");
-        const payload = { task  , title  }
+        const payload = { task, title }
         await addDoc(collectionRef, payload);
         await deleteDoc(doc(db, "data", id));
+    };
+
+    const handleEdit = async (id) => {
+        const docRef = doc(db, "data", id);
+        const payload = { task: "tomtom", title: "pisipisi" }
+        setDoc(docRef, payload);
     };
 
     return (
@@ -29,11 +35,16 @@ function TodoCard({ duty }) {
                 <h1 className="text-xl font-bold">{title}</h1>
                 <h3>{task}</h3>
             </div>
-            <div className="px-4" >
-                <CheckIcon onClick={handleDone} className="button w-15 h-15" />
-            </div>
-            <div className="px-4" >
-                <TrashIcon onClick={handleDelete} className="button w-15 h-15" />
+            <div className="flex flex-col-3 ml-3">
+                <div className="px-2" >
+                    <CheckIcon onClick={handleDone} className="button w-15 h-15" />
+                </div>
+                <div className="px-2" >
+                    <TrashIcon onClick={handleDelete} className="button w-15 h-15" />
+                </div>
+                <div className="px-2" >
+                    <PencilIcon onClick={() => handleEdit(id)} className="button w-15 h-15" />
+                </div>
             </div>
         </div>
     )

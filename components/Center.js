@@ -1,4 +1,4 @@
-import { addDoc, collection, onSnapshot } from "@firebase/firestore";
+import { addDoc, collection, onSnapshot, setDoc } from "@firebase/firestore";
 import { PlusIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import db from "../firebase/firebase";
@@ -8,11 +8,7 @@ import TodoCard from "./TodoCard";
 function Center() {
 
     const [tasks, setTasks] = useState([]);
-    console.log(tasks);
-
     const [doneTasks, setDoneTasks] = useState([]);
-    console.log(doneTasks);
-
     const [title, setTitle] = useState("");
     const [task, setTask] = useState("");
 
@@ -35,10 +31,9 @@ function Center() {
     }, []);
 
     return (
-        <div className="flex flex-col-2">
+        <div className="flex flex-col-2">     
             <div className="p-5 text-xs lg:text-sm overflow-y-scroll scrollbar-hide h-screen">
                 <div>
-                    <h1 className="text-3xl text-center font-bold text-blue-500">Timeline with Tailwindcss</h1>
                     <div className="border-l-2 mt-10">
                         <div className="transition cursor-pointer  ml-10 relative flex items-center px-6 py-4 bg-yellow-500 text-white rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
                             <div className="w-5 h-5 bg-yellow-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
@@ -83,13 +78,14 @@ function Center() {
                     </div>
                 </div>
             </div>
-
-            <div className="border-l-2 mt-10">
-                {doneTasks.map(doneDuty => (
-                    <DoneCard
-                        key={doneDuty.id}
-                        doneDuty={doneDuty} />
-                ))}
+            <div className="p-5 text-xs lg:text-sm overflow-y-scroll scrollbar-hide h-screen">
+                <div className="border-l-2 mt-10">
+                    {doneTasks.map(doneDuty => (
+                        <DoneCard
+                            key={doneDuty.id}
+                            doneDuty={doneDuty} />
+                    ))}
+                </div>
             </div>
         </div>
     )
